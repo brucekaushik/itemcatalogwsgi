@@ -28,6 +28,17 @@ def AddCategory():
     add category
     '''
 
+    # if not logged in, ask user to login
+    # technically, this page should not be accessible unless logged in
+    stored_credentials = appsession.get('access_token')
+    stored_user_id = appsession.get('user_id')
+    if stored_credentials is None and stored_user_id is None:
+        response = make_response(json.dumps(
+                {'response': 'please login first'}), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+
     if request.method == 'POST':
         # verify state (csrf attack protection)
         if request.form.get('state') != appsession['state']:
