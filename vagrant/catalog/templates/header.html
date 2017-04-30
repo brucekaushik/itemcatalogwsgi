@@ -4,6 +4,7 @@
 	</div>
 	<div class="topnav">
 		<ul>
+			<li><a href="{{url_for('routes.Home')}}">Home</a></li>
 			{% if not appsession.get('user_id') %}
 				<li><a href="{{url_for('routes.Login')}}">Login</a></li>
 			{% else %}

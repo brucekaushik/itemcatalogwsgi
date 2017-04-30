@@ -15,4 +15,16 @@
     </div>
   </div>
 
+  <div class="right-column">
+    <div class="items">
+      {% if not items %}
+        <p class="faded-msg">No items added yet! Please <a href="{{url_for('routes.AddItem')}}">add</a> one!</p>
+      {% else %}
+        {% for item in items %}
+          <li><a href="{{url_for('routes.Item', item_name=item.name, item_id=item.id)}}">{{item.name}}</a></li>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
 {% endblock %}

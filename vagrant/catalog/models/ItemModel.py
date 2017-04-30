@@ -19,6 +19,16 @@ def get_item(item_name, category_id):
 				category_id=category_id).first()
 	return item
 
+def get_item_by_id(item_id):
+	item_id = int(item_id)
+	item = session.query(Item).filter_by(id=item_id).first()
+	return item
+
+def get_lastest_items():
+	catalog_id = CatalogModel.get_catalog_id()
+	items = session.query(Item).filter_by(catalog_id=catalog_id).all()
+	return items
+
 
 def add_item(item_name, item_description, category_id):
 	catalog_id = CatalogModel.get_catalog_id()
@@ -42,3 +52,20 @@ def add_item(item_name, item_description, category_id):
 
 	return newitem
 
+
+def edit_item(item_id, item_name, item_description, category_id):
+	item = get_item_by_id(item_id)
+	if not item:
+		return False
+
+	item.name = item_name
+	item.description = item_description
+	item.category_id = item.category_id
+
+	try:
+		session.commit()
+	except:
+		session.rollback()
+		return False
+
+	return item

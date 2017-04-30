@@ -1,7 +1,8 @@
 from . import routes
 from flask import render_template,\
 	session as appsession
-from models import CategoryModel
+from models import CategoryModel,\
+	ItemModel
 
 @routes.route('/')
 def Home():
@@ -12,4 +13,10 @@ def Home():
 	# fetch all categories
 	categories = CategoryModel.get_categories()
 
-	return render_template('home.html', categories=categories, appsession=appsession)
+	# fetch latest items
+	items = ItemModel.get_lastest_items()
+
+	return render_template('home.html',
+			categories=categories,
+			items=items,
+			appsession=appsession)

@@ -69,12 +69,64 @@ def AddItem():
 				categories=categories)
 
 
-@routes.route('/item/<int:item_id>/edit')
+@routes.route('/item/<int:item_id>/edit', methods=['GET', 'POST'])
 def EditItem(item_id):
 	'''
 	edit item
 	'''
-	return 'edit item page'
+
+	# if not logged in, ask user to login
+	# technically, this page should not be accessible unless logged in
+	stored_credentials = appsession.get('access_token')
+	stored_user_id = appsession.get('user_id')
+	if stored_credentials is None and stored_user_id is None:
+		response = make_response(json.dumps(
+		        {'response': 'please login first'}), 401)
+		response.headers['Content-Type'] = 'application/json'
+		return response
+
+	if request.method == 'POST':
+		# verify state (csrf attack protection)
+		if request.form.get('state') != appsession['state']:
+			response = make_response(json.dumps(
+			    {'response': 'invalid state parameter'}), 401)
+			response.headers['Content-Type'] = 'application/json'
+			return response
+
+		item_id = request.form.get('item_id').strip()
+		item_name = request.form.get('name').strip()
+		item_description = request.form.get('description').strip()
+		category_id = request.form.get('category_id')
+
+		result = ItemModel.edit_item(item_id, item_name, item_description, category_id)
+		if result:
+			flash('item updated successfully')
+		else:
+			flash('failed to update item')
+
+		return redirect('/')
+
+	else:
+		state_token = Catalog.generate_state_token()
+
+		# store state token in session
+		appsession['state'] = state_token
+
+		# get categories
+		categories = CategoryModel.get_categories()
+
+		# get item to edit
+		item = ItemModel.get_item_by_id(item_id)
+		if not item:
+			response = make_response(json.dumps(
+			        {'error': 'item not found'}), 404)
+			response.headers['Content-Type'] = 'application/json'
+			return response
+
+		return render_template('edit_item.html',
+				STATE=state_token,
+				appsession=appsession,
+				categories=categories, item=item)
 
 
 @routes.route('/item/<int:item_id>/delete')
