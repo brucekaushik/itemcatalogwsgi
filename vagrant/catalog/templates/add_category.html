@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block content %}
+  {% include "header.html" %}
+
+  <p class="warning">WARNING: You cannot edit/delete a category once added</p>
+
+  <h3>Add Category</h3>
+  <form method="post" action="{{url_for('routes.AddCategory')}}">
+    <div><input type="text" name="name"></div>
+    <div><input type="hidden" name="state" value="{{STATE}}"></div>
+    <div><input type="submit" name="Add Category"></div>
+  </form>
+
+{% endblock %}

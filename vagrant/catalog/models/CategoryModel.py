@@ -1,0 +1,41 @@
+from sqlalchemy import create_engine, asc
+from sqlalchemy.orm import sessionmaker, exc
+from dbsetup import Base, User, Catalog, Category, Item
+from models import CatalogModel
+from flask import session as appsession
+
+# Connect to Database and create database session
+engine = create_engine('sqlite:///itemcatalog.db')
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
+
+def get_categories():
+    categories = session.query(Category).all()
+    return categories
+
+def get_category(category_name):
+	catalog_id = CatalogModel.get_catalog_id()
+	category = session.query(Category).filter_by(name=category_name, catalog_id=catalog_id).first()
+	return category
+
+def add_category(category_name):
+	catalog_id = CatalogModel.get_catalog_id()
+
+	category = get_category(category_name)
+	if category:
+		return False
+
+	newcat = Category(name=category_name, catalog_id=catalog_id, user_id=appsession['user_id'])
+	session.add(newcat)
+
+	try:
+		session.commit()
+	except:
+		session.rollback()
+		return False
+
+	return newcat
+
