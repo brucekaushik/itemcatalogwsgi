@@ -119,4 +119,34 @@ def Logout():
     logout
     '''
 
-    return 'logout page'
+    access_token = appsession.get('access_token')
+
+    # check if access token exists
+    if access_token is None:
+        response = make_response(json.dumps(
+            'Current user not connected.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    # make request to google to revoke the user access token
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[0]
+
+    if result['status'] == '200':
+        # delete session variables
+        del appsession['user_id']
+        del appsession['access_token']
+        del appsession['google_id']
+
+        # build and send response
+        response = make_response(json.dumps({'response':'Successfully disconnected.'}), 200)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    else:
+        # show failure
+        response = make_response(json.dumps(
+            'Failed to revoke token for given user.', 400))
+        response.headers['Content-Type'] = 'application/json'
+        return response
