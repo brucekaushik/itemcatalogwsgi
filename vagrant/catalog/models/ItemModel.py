@@ -29,6 +29,12 @@ def get_lastest_items():
 	items = session.query(Item).filter_by(catalog_id=catalog_id).all()
 	return items
 
+def get_user_items(user_id):
+	user_id = int(user_id)
+	catalog_id = CatalogModel.get_catalog_id()
+	items = session.query(Item).filter_by(catalog_id=catalog_id, user_id=user_id).all()
+	return items
+
 
 def add_item(item_name, item_description, category_id):
 	catalog_id = CatalogModel.get_catalog_id()

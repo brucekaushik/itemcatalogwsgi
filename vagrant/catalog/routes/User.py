@@ -1,7 +1,9 @@
 from . import routes
 from helpers import Catalog,\
     Oauth
-from models import UserModel
+from models import UserModel,\
+    CategoryModel,\
+    ItemModel
 from flask import render_template,\
     session as appsession,\
     request,\
@@ -15,13 +17,26 @@ import httplib2
 import requests
 
 
-@routes.route('/user/<int:user_id>')
-def User(user_id):
+@routes.route('/user')
+def User():
     '''
     user page
     '''
 
-    return 'user page'
+    # fetch all categories
+    categories = CategoryModel.get_categories()
+
+    # fetch latest items
+    items = ItemModel.get_user_items(appsession['user_id'])
+
+    # fetch user info from google
+    userinfo = Oauth.google_get_userinfo(appsession['access_token'])
+
+    return render_template('user.html',
+            categories=categories,
+            items=items,
+            appsession=appsession,
+            userinfo=userinfo)
 
 
 @routes.route('/login', methods=['GET', 'POST'])

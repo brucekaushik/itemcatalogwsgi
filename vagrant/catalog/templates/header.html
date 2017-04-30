@@ -10,7 +10,7 @@
 			{% else %}
 				<li><a href="{{url_for('routes.AddCategory')}}">Add Category</a></li>
 				<li><a href="{{url_for('routes.AddItem')}}">Add Item</a></li>
-				<li><a href="{{url_for('routes.User',user_id=appsession['user_id'])}}">My Profile</a></li>
+				<li><a href="{{url_for('routes.User')}}">My Profile</a></li>
 				<li><a href="{{url_for('routes.Logout')}}">Logout</a></li>
 			{% endif %}
 		</ul>
