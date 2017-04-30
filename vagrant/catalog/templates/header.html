@@ -4,14 +4,14 @@
 	</div>
 	<div class="topnav">
 		<ul>
-			<li><a href="{{url_for('routes.Home')}}">Home</a></li>
+			<li><a id="home" href="{{url_for('routes.Home')}}">Home</a></li>
 			{% if not appsession.get('user_id') %}
-				<li><a href="{{url_for('routes.Login')}}">Login</a></li>
+				<li><a id="login" href="{{url_for('routes.Login')}}">Login</a></li>
 			{% else %}
-				<li><a href="{{url_for('routes.AddCategory')}}">Add Category</a></li>
-				<li><a href="{{url_for('routes.AddItem')}}">Add Item</a></li>
-				<li><a href="{{url_for('routes.User')}}">My Profile</a></li>
-				<li><a href="{{url_for('routes.Logout')}}">Logout</a></li>
+				<li><a id="add-category" href="{{url_for('routes.AddCategory')}}">Add Category</a></li>
+				<li><a id="add-item" href="{{url_for('routes.AddItem')}}">Add Item</a></li>
+				<li><a id="my-profile" href="{{url_for('routes.User')}}">My Profile</a></li>
+				<li><a id="logout" href="{{url_for('routes.Logout')}}">Logout</a></li>
 			{% endif %}
 		</ul>
 	</div>

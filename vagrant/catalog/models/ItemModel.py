@@ -26,7 +26,7 @@ def get_item_by_id(item_id):
 
 def get_lastest_items():
 	catalog_id = CatalogModel.get_catalog_id()
-	items = session.query(Item).filter_by(catalog_id=catalog_id).all()
+	items = session.query(Item).filter_by(catalog_id=catalog_id).order_by(Item.id.desc()).limit(5)
 	return items
 
 def get_user_items(user_id):

@@ -53,27 +53,273 @@
 
 /* begin common styles */
 
-* {
-	box-sizing: border-box;
-}
+	* {
+		box-sizing: border-box;
+	}
 
-.w50 {
-	width: 50%;
-}
+	.w50 {
+		width: 50%;
+	}
 
-.centerblock {
-	margin: 0 auto;
-}
+	.centerblock {
+		margin: 0 auto;
+	}
 
-.centertext {
-	text-align: center;
-}
+	.centertext {
+		text-align: center;
+	}
 
-.container {
-	width: 70%;
-	min-width: 900px;
-	margin: 0 auto;
-}
+	.container {
+		width: 70%;
+		min-width: 900px;
+		margin: 0 auto;
+	}
+
+	a:hover {
+		background: #000;
+		color: #fff;
+	}
+
+	.form {
+		padding: 30px;
+		line-height: 2em;
+	}
+
+	.form .warning {
+		padding: 10px 0;
+		font-size: 16px;
+		color: #9b0104;
+	}
+
+	.form h3 {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+
+	.form label {
+		margin-left: 5px;
+	}
+
+	.form input[type=text],
+	.form textarea,
+	.form select {
+		width: 60%;
+		padding: 5px;
+		font-size: 18px;
+		margin-bottom: 10px;
+	}
+
+	.form input[type=submit] {
+		margin: 20px 0 0 0;
+	}
+
+	.note {
+		margin: 0 0 5px 0;
+	}
 
 /* end common styles */
 
+/* begin header */
+
+	header {
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+
+	.logo {
+		text-align: center;
+		color: #1c2a42;
+		font-size: 40px;
+    	font-family: 'Lato', sans-serif;
+    	margin: 0 0 20px 0;
+	}
+
+	.topnav {
+		text-align: center;
+	}
+
+	.topnav li {
+		list-style-type: none;
+		display: inline-block;
+	}
+
+	.topnav li a {
+		text-decoration: none;
+		padding: 10px;
+		display: block;
+		border-radius: 10px;
+		color: #ffffff;
+		font-family: sans-serif;
+	}
+
+	.topnav li a#home {
+		background: #33877b;
+	}
+
+	.topnav li a#login {
+		background: #873333;
+	}
+
+	.topnav li a#add-category {
+		background: #a05938;
+	}
+
+	.topnav li a#add-category {
+		background: #a05938;
+	}
+
+	.topnav li a#add-item {
+		background: #3d4f00;
+	}
+
+	.topnav li a#my-profile {
+		background: #363047;
+	}
+
+	.topnav li a#logout {
+		background: #d1511b;
+	}
+
+	.topnav li a:hover {
+		background: #000 !important;
+		color: #fff !important;
+	}
+
+	.flash {
+		margin: 10px 0;
+	}
+
+	.flash li {
+		text-align: center;
+		background: #65f77d;
+		color: #000000;
+		margin: 5px 0; 
+		padding: 5px;
+	}
+
+/* end header */
+
+/* begin left column */
+
+	.left-column {
+		width: 30%;
+		float: left;
+	}
+
+	.left-column h4  {
+		text-align: center;
+		color: #333333;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+
+	.categories ul li {
+		list-style-type: none;
+		border: 1px dotted #ccc;
+	}
+
+	.categories a {
+		text-decoration: none;
+		color: #333333;
+		display: block;
+		padding: 10px;
+		font-family: 'Lato', sans-serif;
+	}
+
+	.categories a:hover {
+		background: #333333;
+		color: #ffffff;
+	}
+
+	.user-info .profile-pic img {
+		width: 100%;
+	}
+
+	.user-info .name-email {
+		text-align: center;
+		line-height: 1.5em;
+	}
+
+/* end left column */
+
+
+/* begin right column */
+
+	.right-column {
+		width: 68%;
+		float: left;
+	}
+
+	.right-column h4  {
+		text-align: center;
+		color: #333333;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+
+	.items ul li {
+		list-style-type: none;
+		border: 1px dotted #ccc;
+	}
+
+	.items a {
+		text-decoration: none;
+		color: #333333;
+		display: block;
+		padding: 10px;
+		font-family: 'Lato', sans-serif;
+	}
+
+	.items a:hover {
+		background: #333333;
+		color: #ffffff;
+	}
+
+	/* begin view item page */
+
+		.view-item {
+			margin-bottom: 35px;
+		}
+
+		.view-item h1 {
+			color: #000000;
+			font-size: 25px;
+			font-family: 'Lato', sans-serif;
+			margin: 0 0 20px 0;
+		}
+
+		.view-item .description {
+			color: #333333;
+			font-size: 15px;
+			font-family: 'Lato', sans-serif;
+			margin: 0 0 20px 0;
+		}
+
+		.view-item .category {
+			color: #232323;
+			font-size: 15px;
+			font-family: 'Lato', sans-serif;
+			margin: 0 0 20px 0;
+			font-weight: bold;
+		}
+
+		.item-operations ul li {
+			list-style-type: none;
+			display: inline-block;
+		}
+
+		.item-operations a {
+			padding: 10px;
+			border-radius: 10px;
+			text-decoration: none;
+			background: #333333;
+			color: #ffffff;
+		}
+
+		.item-operations a:hover {
+			background: #000000;
+		}
+
+	/* end view item page */
+
+/* end right column */

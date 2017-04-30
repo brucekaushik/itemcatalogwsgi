@@ -1,22 +1,26 @@
 {% extends "main.html" %}
 
-{% block content %}
-  {% include "header.html" %}
+    {% block content %}
+    {% include "header.html" %}
 
-  <h3>Add Item</h3>
-  <form method="post" action="{{url_for('routes.AddItem')}}">
-    <div>Name:<br><input type="text" name="name"></div>
-    <div>Description:<br><textarea name="description"></textarea></div>
-    <div>
-    	Category: 
-    	<select name="category_id">
-    		{% for category in categories %}
-    			<option value="{{category.id}}">{{category.name}}</option>
-    		{% endfor %}
-    	</select>
+    <div class="form">
+        <h3>Add Item</h3>
+        <form method="post" action="{{url_for('routes.AddItem')}}">
+            <div>Name:<br><input type="text" name="name"></div>
+            <div>Description:<br><textarea name="description"></textarea></div>
+            <div>
+                <label>
+                    Category:<br>
+                    <select name="category_id">
+                        {% for category in categories %}
+                        <option value="{{category.id}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+        <div><input type="hidden" name="state" value="{{STATE}}"></div>
+        <div><input type="submit" name="Add Item" value="Add"></div>
+        </form>
     </div>
-    <div><input type="hidden" name="state" value="{{STATE}}"></div>
-    <div><input type="submit" name="Add Category"></div>
-  </form>
 
 {% endblock %}

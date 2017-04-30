@@ -3,17 +3,17 @@
 {% block content %}
   {% include "header.html" %}
 
-  <div class="viewitem">
+  <div class="view-item">
     <h1>{{item.name}}</h1>
-    <p>{{item.description}}</p>
-    <p>{{category_name}}</p>
+    <p class="description">{{item.description}}</p>
+    <p class="category">Category: {{category_name}}</p>
   </div>
 
   <div class="item-operations">
-    <ul>
-      <li><a href="{{url_for('routes.EditItem', item_id=item.id)}}">Edit</a></li>
-      <li><a href="{{url_for('routes.DeleteItem', item_id=item.id)}}">Delete</a></li>
-    </ul>
+      <ul>
+        <li><a href="{{url_for('routes.EditItem', item_id=item.id)}}">Edit</a></li>
+        <li><a href="{{url_for('routes.DeleteItem', item_id=item.id)}}">Delete</a></li>
+      </ul>
   </div>
 
 {% endblock %}

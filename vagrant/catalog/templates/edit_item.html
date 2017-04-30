@@ -3,12 +3,14 @@
 {% block content %}
   {% include "header.html" %}
 
+  <div class="form">
   <h3>Edit Item</h3>
   <form method="post" action="{{url_for('routes.EditItem', item_id=item.id)}}">
-    <div>Name:<br><input type="text" name="name" value="{{item.name}}"></div>
-    <div>Description:<br><textarea name="description">{{item.description}}</textarea></div>
+    <div><label>Name:<br><input type="text" name="name" value="{{item.name}}"></label></div>
+    <div><label>Description:<br><textarea name="description">{{item.description}}</textarea></label></div>
     <div>
-    	Category: 
+      <label>
+    	Category: <br>
     	<select name="category_id">
     		{% for category in categories %}
           {% if item.category_id == category.id %}
@@ -18,10 +20,12 @@
           {% endif %}
     		{% endfor %}
     	</select>
+      </label>
     </div>
     <div><input type="hidden" name="item_id" value="{{item.id}}"></div>
     <div><input type="hidden" name="state" value="{{STATE}}"></div>
-    <div><input type="submit" name="Update Item" value="Update Item"></div>
+    <div><input type="submit" name="Update Item" value="Update"></div>
   </form>
+  </div>
 
 {% endblock %}
