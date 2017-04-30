@@ -69,3 +69,18 @@ def edit_item(item_id, item_name, item_description, category_id):
 		return False
 
 	return item
+
+def delete_item(item_id):
+	item = get_item_by_id(item_id)
+	if not item:
+		return False
+
+	session.delete(item)
+
+	try:
+		session.commit()
+	except:
+		session.rollback()
+		return False
+
+	return item

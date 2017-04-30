@@ -123,15 +123,78 @@ def EditItem(item_id):
 			response.headers['Content-Type'] = 'application/json'
 			return response
 
+		if item.user_id != appsession['user_id']:
+			response = make_response(json.dumps(
+			        {'error': 'permission denied'}), 401)
+			response.headers['Content-Type'] = 'application/json'
+			return response 
+
 		return render_template('edit_item.html',
 				STATE=state_token,
 				appsession=appsession,
 				categories=categories, item=item)
 
 
-@routes.route('/item/<int:item_id>/delete')
+@routes.route('/item/<int:item_id>/delete', methods=['GET', 'POST'])
 def DeleteItem(item_id):
 	'''
 	delete item
 	'''
-	return 'delete item page'
+	
+	# if not logged in, ask user to login
+	# technically, this page should not be accessible unless logged in
+	stored_credentials = appsession.get('access_token')
+	stored_user_id = appsession.get('user_id')
+	if stored_credentials is None and stored_user_id is None:
+		response = make_response(json.dumps(
+		        {'response': 'please login first'}), 401)
+		response.headers['Content-Type'] = 'application/json'
+		return response
+
+	if request.method == 'POST':
+		# verify state (csrf attack protection)
+		if request.form.get('state') != appsession['state']:
+			response = make_response(json.dumps(
+			    {'response': 'invalid state parameter'}), 401)
+			response.headers['Content-Type'] = 'application/json'
+			return response
+
+		# get item id from from
+		item_id = request.form.get('item_id').strip()
+
+		# delete item
+		result = ItemModel.delete_item(item_id)
+		if result:
+			flash('item deleted successfully')
+		else:
+			flash('failed to delete item')
+
+		return redirect('/')
+
+	else:
+		state_token = Catalog.generate_state_token()
+
+		# store state token in session
+		appsession['state'] = state_token
+
+		# get categories
+		categories = CategoryModel.get_categories()
+
+		# get item to delete
+		item = ItemModel.get_item_by_id(item_id)
+		if not item:
+			response = make_response(json.dumps(
+			        {'error': 'item not found'}), 404)
+			response.headers['Content-Type'] = 'application/json'
+			return response
+
+		if item.user_id != appsession['user_id']:
+			response = make_response(json.dumps(
+			        {'error': 'permission denied'}), 401)
+			response.headers['Content-Type'] = 'application/json'
+			return response 
+
+		return render_template('delete_item.html',
+				STATE=state_token,
+				appsession=appsession,
+				categories=categories, item=item)
