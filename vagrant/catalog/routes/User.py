@@ -12,6 +12,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import json
 import httplib2
+import requests
 
 
 @routes.route('/user/<int:user_id>')
@@ -122,6 +123,19 @@ def Logout():
     '''
 
     access_token = appsession.get('access_token')
+
+    # check token validity
+    # If there was an error in the token info, logout & redirect.
+    tokeninfo = Oauth.google_get_tokeninfo(access_token)
+    if tokeninfo.get('error') is not None:
+    # delete session variables
+        del appsession['user_id']
+        del appsession['access_token']
+        del appsession['google_id']
+
+        flash('logout successful')
+        return redirect('/')
+
 
     # check if access token exists
     if access_token is None:
