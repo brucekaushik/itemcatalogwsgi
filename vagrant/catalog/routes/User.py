@@ -5,7 +5,9 @@ from models import UserModel
 from flask import render_template,\
     session as appsession,\
     request,\
-    make_response
+    redirect,\
+    make_response,\
+    flash
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import json
@@ -110,7 +112,7 @@ def Login():
         appsession['state'] = state_token
 
         # render login template
-        return render_template('login.html', STATE=state_token)
+        return render_template('login.html', STATE=state_token, appsession=appsession)
 
 
 @routes.route('/logout')
@@ -139,10 +141,8 @@ def Logout():
         del appsession['access_token']
         del appsession['google_id']
 
-        # build and send response
-        response = make_response(json.dumps({'response':'Successfully disconnected.'}), 200)
-        response.headers['Content-Type'] = 'application/json'
-        return response
+        flash('logout successful')
+        return redirect('/')
 
     else:
         # show failure

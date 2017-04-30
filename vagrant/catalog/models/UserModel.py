@@ -24,5 +24,11 @@ def register_user(userinfo):
     reguser = User(name=userinfo['name'], email=userinfo[
         'email'], picture=userinfo['picture'])
     session.add(reguser)
-    session.commit()
+
+    try:
+        session.commit()
+    except:
+        session.rollback()
+        return False
+
     return reguser

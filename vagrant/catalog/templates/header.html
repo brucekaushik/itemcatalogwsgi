@@ -1,0 +1,29 @@
+<header>
+	<div class="logo">
+		CATALOG APP
+	</div>
+	<div class="topnav">
+		<ul>
+			{% if not appsession.get('user_id') %}
+				<li><a href="{{url_for('routes.Login')}}">Login</a></li>
+			{% else %}
+				<li><a href="{{url_for('routes.AddCategory')}}">Add Category</a></li>
+				<li><a href="{{url_for('routes.AddItem')}}">Add Item</a></li>
+				<li><a href="{{url_for('routes.User',user_id=appsession['user_id'])}}">My Profile</a></li>
+				<li><a href="{{url_for('routes.Logout')}}">Logout</a></li>
+			{% endif %}
+		</ul>
+	</div>
+
+	<div class = 'flash'>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul>
+				{% for message in messages %}
+				<li> <strong> {{ message }} </strong> </li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+	</div>
+</header>
