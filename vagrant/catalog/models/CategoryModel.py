@@ -22,6 +22,11 @@ def get_category(category_name):
 	category = session.query(Category).filter_by(name=category_name, catalog_id=catalog_id).first()
 	return category
 
+def get_category_by_id(category_id):
+	category_id = int(category_id)
+	category = session.query(Category).filter_by(id=category_id).first()
+	return category
+
 def add_category(category_name):
 	catalog_id = CatalogModel.get_catalog_id()
 

@@ -16,7 +16,22 @@ def Item(item_name, item_id):
 	'''
 	Item page: 
 	'''
-	return 'item page'
+
+	# get categories
+	categories = CategoryModel.get_categories()
+
+	# get item
+	item = ItemModel.get_item_by_id(item_id)
+
+	# get item category name
+	category = CategoryModel.get_category_by_id(item.category_id)
+	category_name = category.name
+	
+	return render_template('view_item.html',
+				appsession=appsession,
+				categories=categories,
+				item=item,
+				category_name=category_name)
 
 
 @routes.route('/item/add', methods=['GET', 'POST'])

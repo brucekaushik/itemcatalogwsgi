@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+
+{% block content %}
+  {% include "header.html" %}
+
+  <div class="viewitem">
+    <h1>{{item.name}}</h1>
+    <p>{{item.description}}</p>
+    <p>{{category_name}}</p>
+  </div>
+
+  <div class="item-operations">
+    <ul>
+      <li><a href="{{url_for('routes.EditItem', item_id=item.id)}}">Edit</a></li>
+      <li><a href="{{url_for('routes.DeleteItem', item_id=item.id)}}">Delete</a></li>
+    </ul>
+  </div>
+
+{% endblock %}
