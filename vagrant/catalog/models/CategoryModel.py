@@ -13,35 +13,39 @@ session = DBSession()
 
 
 def get_categories():
-	catalog_id = CatalogModel.get_catalog_id()
-	categories = session.query(Category).filter_by(catalog_id=catalog_id)
-	return categories
+    catalog_id = CatalogModel.get_catalog_id()
+    categories = session.query(Category).filter_by(catalog_id=catalog_id)
+    return categories
+
 
 def get_category(category_name):
-	catalog_id = CatalogModel.get_catalog_id()
-	category = session.query(Category).filter_by(name=category_name, catalog_id=catalog_id).first()
-	return category
+    catalog_id = CatalogModel.get_catalog_id()
+    category = session.query(Category).filter_by(
+        name=category_name, catalog_id=catalog_id).first()
+    return category
+
 
 def get_category_by_id(category_id):
-	category_id = int(category_id)
-	category = session.query(Category).filter_by(id=category_id).first()
-	return category
+    category_id = int(category_id)
+    category = session.query(Category).filter_by(id=category_id).first()
+    return category
+
 
 def add_category(category_name):
-	catalog_id = CatalogModel.get_catalog_id()
+    catalog_id = CatalogModel.get_catalog_id()
 
-	category = get_category(category_name)
-	if category:
-		return False
+    category = get_category(category_name)
+    if category:
+        return False
 
-	newcat = Category(name=category_name, catalog_id=catalog_id, user_id=appsession['user_id'])
-	session.add(newcat)
+    newcat = Category(name=category_name, catalog_id=catalog_id,
+                      user_id=appsession['user_id'])
+    session.add(newcat)
 
-	try:
-		session.commit()
-	except:
-		session.rollback()
-		return False
+    try:
+        session.commit()
+    except:
+        session.rollback()
+        return False
 
-	return newcat
-
+    return newcat

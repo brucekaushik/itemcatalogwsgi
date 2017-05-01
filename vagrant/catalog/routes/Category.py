@@ -24,9 +24,9 @@ def Category(category_name, category_id):
     items = ItemModel.get_category_items(category_id)
 
     return render_template('category.html',
-            category_name=category_name,
-            categories=categories, items=items,
-            appsession=appsession)
+                           category_name=category_name,
+                           categories=categories, items=items,
+                           appsession=appsession)
 
 
 @routes.route('/category/add', methods=['GET', 'POST'])
@@ -41,10 +41,9 @@ def AddCategory():
     stored_user_id = appsession.get('user_id')
     if stored_credentials is None and stored_user_id is None:
         response = make_response(json.dumps(
-                {'response': 'please login first'}), 401)
+            {'response': 'please login first'}), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-
 
     if request.method == 'POST':
         # verify state (csrf attack protection)
@@ -54,6 +53,7 @@ def AddCategory():
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        # add category
         category_name = request.form.get('name').strip()
         result = CategoryModel.add_category(category_name)
         if result:
@@ -69,7 +69,9 @@ def AddCategory():
         # store state token in session
         appsession['state'] = state_token
 
-        return render_template('add_category.html', STATE=state_token, appsession=appsession)
+        return render_template('add_category.html',
+                               STATE=state_token,
+                               appsession=appsession)
 
 
 @routes.route('/category/<int:category_id>/edit')

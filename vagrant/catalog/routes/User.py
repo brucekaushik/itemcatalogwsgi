@@ -33,10 +33,10 @@ def User():
     userinfo = Oauth.google_get_userinfo(appsession['access_token'])
 
     return render_template('user.html',
-            categories=categories,
-            items=items,
-            appsession=appsession,
-            userinfo=userinfo)
+                           categories=categories,
+                           items=items,
+                           appsession=appsession,
+                           userinfo=userinfo)
 
 
 @routes.route('/login', methods=['GET', 'POST'])
@@ -128,7 +128,9 @@ def Login():
         appsession['state'] = state_token
 
         # render login template
-        return render_template('login.html', STATE=state_token, appsession=appsession)
+        return render_template('login.html',
+                               STATE=state_token,
+                               appsession=appsession)
 
 
 @routes.route('/logout')
@@ -143,14 +145,13 @@ def Logout():
     # If there was an error in the token info, logout & redirect.
     tokeninfo = Oauth.google_get_tokeninfo(access_token)
     if tokeninfo.get('error') is not None:
-    # delete session variables
+        # delete session variables
         del appsession['user_id']
         del appsession['access_token']
         del appsession['google_id']
 
         flash('logout successful')
         return redirect('/')
-
 
     # check if access token exists
     if access_token is None:
