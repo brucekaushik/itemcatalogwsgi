@@ -26,7 +26,7 @@ def Item(item_name, item_id):
     item = ItemModel.get_item_by_id(item_id)
     if not item:
         response = make_response(json.dumps(
-                {'error': 'item not found'}), 404)
+            {'error': 'item not found'}), 404)
         response.headers['Content-Type'] = 'application/json'
         return response
 
