@@ -229,9 +229,6 @@ def DeleteItem(item_id):
         # store state token in session
         appsession['state'] = state_token
 
-        # get categories
-        categories = CategoryModel.get_categories()
-
         # get item to delete
         item = ItemModel.get_item_by_id(item_id)
         if not item:
@@ -239,6 +236,9 @@ def DeleteItem(item_id):
                 {'error': 'item not found'}), 404)
             response.headers['Content-Type'] = 'application/json'
             return response
+
+        # get item category
+        category = CategoryModel.get_category_by_id(item.category_id)
 
         # check for user id mismatch
         if item.user_id != appsession['user_id']:
@@ -250,4 +250,5 @@ def DeleteItem(item_id):
         return render_template('delete_item.html',
                                STATE=state_token,
                                appsession=appsession,
-                               categories=categories, item=item)
+                               category=category,
+                               item=item)

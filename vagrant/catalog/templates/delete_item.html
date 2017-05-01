@@ -7,22 +7,9 @@
     <h3>Delete Item</h3>
     <form method="post" action="{{url_for('routes.DeleteItem', item_id=item.id)}}">
       <p class="note">WARNING: Are you sure you want to delete the following item?</p>
-      <div><label>Name:<br><input type="text" name="name" value="{{item.name}}"></label></div>
-      <div><label>Description:<br><textarea name="description">{{item.description}}</textarea></label></div>
-      <div>
-        <label>
-        	Category:<br> 
-        	<select name="category_id">
-        		{% for category in categories %}
-              {% if item.category_id == category.id %}
-                  <option value="{{category.id}}" selected="selected">{{category.name}}</option>
-              {% else %}
-                  <option value="{{category.id}}">{{category.name}}</option>
-              {% endif %}
-        		{% endfor %}
-        	</select>
-          </label>
-      </div>
+      <div><strong>Name:</strong> {{item.name}}</div>
+      <div><strong>Description:</strong> {{item.description}}</div>
+      <div><strong>Category: </strong>{{category.name}}</div>
       <div><input type="hidden" name="item_id" value="{{item.id}}"></div>
       <div><input type="hidden" name="state" value="{{STATE}}"></div>
       <div><input type="submit" name="Delete Item" value="Delete"></div>

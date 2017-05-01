@@ -122,6 +122,10 @@
 		color: #cccccc;
 	}
 
+	strong {
+		font-weight: bold;
+	}
+
 /* end common styles */
 
 /* begin header */
