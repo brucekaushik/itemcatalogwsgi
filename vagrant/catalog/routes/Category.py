@@ -53,8 +53,15 @@ def AddCategory():
             response.headers['Content-Type'] = 'application/json'
             return response
 
-        # add category
+        # if category name is empty
         category_name = request.form.get('name').strip()
+        if not category_name:
+            flash('please fill category name field')
+            return render_template('add_category.html',
+                                   STATE=request.form.get('state'),
+                                   appsession=appsession)
+
+        # add category
         result = CategoryModel.add_category(category_name)
         if result:
             flash('category added successfully')

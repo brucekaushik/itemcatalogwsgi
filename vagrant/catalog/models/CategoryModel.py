@@ -17,7 +17,7 @@ def get_categories():
     get all categories
     '''
     catalog_id = CatalogModel.get_catalog_id()
-    categories = session.query(Category).filter_by(catalog_id=catalog_id)
+    categories = session.query(Category).filter_by(catalog_id=catalog_id).all()
     return categories
 
 

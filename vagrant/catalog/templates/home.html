@@ -7,7 +7,7 @@
     <div class="categories">
       <h4>Categories</h4>
       {% if not categories %}
-        <p class="faded-msg">No categories added yet! Please <a href="{{url_for('routes.AddCategory')}}">add</a> one!</p>
+        <p class="faded-msg">No categories added yet!</p>
       {% else %}
         <ul>
         {% for category in categories %}

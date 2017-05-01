@@ -73,6 +73,9 @@ def AddItem():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+    # get categories
+    categories = CategoryModel.get_categories()
+
     if request.method == 'POST':
         # verify state (csrf attack protection)
         if request.form.get('state') != appsession['state']:
@@ -85,6 +88,13 @@ def AddItem():
         item_name = request.form.get('name').strip()
         item_description = request.form.get('description').strip()
         category_id = request.form.get('category_id')
+
+        if not (item_name and item_description and category_id):
+            flash('all fields mandatory, please fill')
+            return render_template('add_item.html',
+                                   STATE=request.form.get('state'),
+                                   appsession=appsession,
+                                   categories=categories)
 
         # add item
         result = ItemModel.add_item(item_name, item_description, category_id)
@@ -100,9 +110,6 @@ def AddItem():
 
         # store state token in session
         appsession['state'] = state_token
-
-        # get categories
-        categories = CategoryModel.get_categories()
 
         return render_template('add_item.html',
                                STATE=state_token,
