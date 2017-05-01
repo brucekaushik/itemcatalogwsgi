@@ -4,7 +4,8 @@ from flask import request,\
     session as appsession,\
     make_response,\
     flash,\
-    redirect
+    redirect,\
+    jsonify
 from helpers import Catalog
 from models import CategoryModel,\
     ItemModel,\
@@ -15,7 +16,7 @@ import json
 @routes.route('/item/<string:item_name>/<int:item_id>')
 def Item(item_name, item_id):
     '''
-    Item page: 
+    Item page (view item)
     '''
 
     # get categories
@@ -33,6 +34,22 @@ def Item(item_name, item_id):
                            categories=categories,
                            item=item,
                            category_name=category_name)
+
+
+@routes.route('/itemjson/<string:item_name>/<int:item_id>')
+def ItemJson(item_name, item_id):
+    '''
+    Item Json Endpoint
+    '''
+
+    # get item
+    item = ItemModel.get_item_by_id(item_id)
+
+    if not item:
+        return jsonify({'error': 'item not found'})
+
+    item = item.serialize
+    return jsonify(item=item)
 
 
 @routes.route('/item/add', methods=['GET', 'POST'])

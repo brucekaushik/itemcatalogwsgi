@@ -13,6 +13,7 @@
       <ul>
         <li><a href="{{url_for('routes.EditItem', item_id=item.id)}}">Edit</a></li>
         <li><a href="{{url_for('routes.DeleteItem', item_id=item.id)}}">Delete</a></li>
+        <li><a href="{{url_for('routes.ItemJson', item_name=item.name, item_id=item.id)}}">JSON Endpoint</a></li>
       </ul>
   </div>
 
