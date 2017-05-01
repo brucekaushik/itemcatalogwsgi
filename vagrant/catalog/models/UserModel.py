@@ -11,11 +11,17 @@ session = DBSession()
 
 
 def get_user(email):
+    '''
+    get user using email
+    '''
     user = session.query(User).filter_by(email=email).first()
     return user
 
 
 def register_user(userinfo):
+    '''
+    register user in database
+    '''
     user = get_user(userinfo['email'])
 
     if user:

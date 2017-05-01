@@ -13,12 +13,18 @@ session = DBSession()
 
 
 def get_categories():
+    '''
+    get all categories
+    '''
     catalog_id = CatalogModel.get_catalog_id()
     categories = session.query(Category).filter_by(catalog_id=catalog_id)
     return categories
 
 
 def get_category(category_name):
+    '''
+    get category using category name
+    '''
     catalog_id = CatalogModel.get_catalog_id()
     category = session.query(Category).filter_by(
         name=category_name, catalog_id=catalog_id).first()
@@ -26,12 +32,18 @@ def get_category(category_name):
 
 
 def get_category_by_id(category_id):
+    '''
+    get category using category id
+    '''
     category_id = int(category_id)
     category = session.query(Category).filter_by(id=category_id).first()
     return category
 
 
 def add_category(category_name):
+    '''
+    add category to database
+    '''
     catalog_id = CatalogModel.get_catalog_id()
 
     category = get_category(category_name)

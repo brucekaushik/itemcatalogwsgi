@@ -11,5 +11,9 @@ session = DBSession()
 
 
 def get_catalog_id(catalog_name='default'):
+    '''
+    get catalog id
+    '''
+
     catalog = session.query(Catalog).filter_by(name=catalog_name).first()
     return catalog.id

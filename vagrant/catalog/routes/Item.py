@@ -81,9 +81,12 @@ def AddItem():
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        # get form variables
         item_name = request.form.get('name').strip()
         item_description = request.form.get('description').strip()
         category_id = request.form.get('category_id')
+
+        # add item
         result = ItemModel.add_item(item_name, item_description, category_id)
         if result:
             flash('item added successfully')
@@ -131,11 +134,13 @@ def EditItem(item_id):
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        # get form variables
         item_id = request.form.get('item_id').strip()
         item_name = request.form.get('name').strip()
         item_description = request.form.get('description').strip()
         category_id = request.form.get('category_id')
 
+        # edit item
         result = ItemModel.edit_item(
             item_id, item_name, item_description, category_id)
         if result:
@@ -162,6 +167,7 @@ def EditItem(item_id):
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        # check if user id mismatch
         if item.user_id != appsession['user_id']:
             response = make_response(json.dumps(
                 {'error': 'permission denied'}), 401)
@@ -227,6 +233,7 @@ def DeleteItem(item_id):
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        # check for user id mismatch
         if item.user_id != appsession['user_id']:
             response = make_response(json.dumps(
                 {'error': 'permission denied'}), 401)
