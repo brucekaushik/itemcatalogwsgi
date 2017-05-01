@@ -23,8 +23,8 @@ Code for item catalog udacity project
 * enter "vagrant up" in the terminal (this sets up the vm, wait for the vm to be downloaded and setup for you)
 * enter "vagrant ssh" in the terminal (ssh into the machine)
 * enter "cd /vagrant/catalog" in the terminal (the project files are located here)
-* enter "python models/dbsetup.py" in the terminal (this will setup the sqlite database, you can see itemcatalog.db)
-* enter "python models/populatedb.py" in the terminal (this will populate the database with initial set of records, this is MANDATORY, otherwise it will lead to errors)
+* enter "python dbsetup.py" in the terminal (this will setup the sqlite database, you can see itemcatalog.db)
+* enter "python populatedb.py" in the terminal (this will populate the database with initial set of records, this is MANDATORY, otherwise it will lead to errors)
 * enter "pip install requests" in the terminal (this will install requests library)
 * enter "python app.py" (the app should start after issuing this command)
 * browse to "http://localhost:5000" to see the catalog app!
