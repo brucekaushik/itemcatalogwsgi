@@ -18,8 +18,8 @@ Code for item catalog udacity project
 
 
 * make sure virtualbox and vagrant are installed on your machine
-* enter "git clone https://github.com/brucekaushik/ItemCatalog.git <path>/<directory name>" to clone this project
-* cd <cloned directory>/vagrant
+* enter "git clone https://github.com/brucekaushik/ItemCatalog.git [path]/[directory-name]" to clone this project
+* cd [cloned directory path]/vagrant
 * enter "vagrant up" in the terminal (this sets up the vm, wait for the vm to be downloaded and setup for you)
 * enter "vagrant ssh" in the terminal (ssh into the machine)
 * enter "cd /vagrant/catalog" in the terminal (the project files are located here)
