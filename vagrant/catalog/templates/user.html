@@ -14,7 +14,7 @@
     <div class="categories">
       <h4>Categories (all)</h4>
       {% if not categories %}
-        <p class="faded-msg">No categories added yet! Please <a href="{{url_for('routes.AddCategory')}}">add</a> one!</p>
+        <p class="faded-msg">No categories added yet!</p>
       {% else %}
         <ul>
         {% for category in categories %}
@@ -30,15 +30,15 @@
         <h4>Your Items</h4>
         <p class="note centertext">Note: click on the item for edit/delete options</p>
         {% if not items %}
-            <p class="faded-msg">No items added yet! Please <a href="{{url_for('routes.AddItem')}}">add</a> one!</p>
+            <p class="faded-msg">No items added yet!</p>
         {% else %}
-        <ul>
-            {% for item in items %}
-            <li>
-              <a href="{{url_for('routes.Item', item_name=item.name, item_id=item.id)}}">{{item.name}}</a>
-            </li>
-            {% endfor %}
-        </ul>
+          <ul>
+              {% for item in items %}
+              <li>
+                <a href="{{url_for('routes.Item', item_name=item.name, item_id=item.id)}}">{{item.name}}</a>
+              </li>
+              {% endfor %}
+          </ul>
         {% endif %}
     </div>
   </div>
