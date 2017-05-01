@@ -26,13 +26,19 @@ def get_item_by_id(item_id):
 
 def get_lastest_items():
 	catalog_id = CatalogModel.get_catalog_id()
-	items = session.query(Item).filter_by(catalog_id=catalog_id).order_by(Item.id.desc()).limit(5)
+	items = session.query(Item).filter_by(catalog_id=catalog_id).order_by(Item.id.desc()).limit(5).all()
 	return items
 
 def get_user_items(user_id):
 	user_id = int(user_id)
 	catalog_id = CatalogModel.get_catalog_id()
 	items = session.query(Item).filter_by(catalog_id=catalog_id, user_id=user_id).all()
+	return items
+
+def get_category_items(category_id):
+	category_id = int(category_id)
+	catalog_id = CatalogModel.get_catalog_id()
+	items = session.query(Item).filter_by(catalog_id=catalog_id, category_id=category_id).all()
 	return items
 
 
@@ -66,7 +72,7 @@ def edit_item(item_id, item_name, item_description, category_id):
 
 	item.name = item_name
 	item.description = item_description
-	item.category_id = item.category_id
+	item.category_id = category_id
 
 	try:
 		session.commit()

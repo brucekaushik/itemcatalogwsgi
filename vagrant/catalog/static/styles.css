@@ -117,6 +117,11 @@
 		margin: 0 0 5px 0;
 	}
 
+	.faded-msg {
+		text-align: center;
+		color: #cccccc;
+	}
+
 /* end common styles */
 
 /* begin header */

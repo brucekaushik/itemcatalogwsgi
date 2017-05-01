@@ -22,7 +22,7 @@
     <div class="items">
       <h4>Latest Items</h4>
       {% if not items %}
-        <p class="faded-msg">No items added yet! Please <a href="{{url_for('routes.AddItem')}}">add</a> one!</p>
+        <p class="faded-msg">No items added yet!</p>
       {% else %}
         <ul>
         {% for item in items %}

@@ -5,12 +5,30 @@
 
   <div class="left-column">
     <div class="categories">
+      <h4>Categories</h4>
       {% if not categories %}
         <p class="faded-msg">No categories added yet! Please <a href="{{url_for('routes.AddCategory')}}">add</a> one!</p>
       {% else %}
+        <ul>
         {% for category in categories %}
           <li><a href="{{url_for('routes.Category', category_name=category.name, category_id=category.id)}}">{{category.name}}</a></li>
         {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="right-column">
+    <div class="items">
+      <h4>{{category_name}}</h4>
+      {% if not items %}
+        <p class="faded-msg">No items added yet!</p>
+      {% else %}
+        <ul>
+        {% for item in items %}
+          <li><a href="{{url_for('routes.Item', item_name=item.name, item_id=item.id)}}">{{item.name}}</a></li>
+        {% endfor %}
+        </ul>
       {% endif %}
     </div>
   </div>
