@@ -24,6 +24,11 @@ def Item(item_name, item_id):
 
     # get item
     item = ItemModel.get_item_by_id(item_id)
+    if not item:
+        response = make_response(json.dumps(
+                {'error': 'item not found'}), 404)
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
     # get item category name
     category = CategoryModel.get_category_by_id(item.category_id)
