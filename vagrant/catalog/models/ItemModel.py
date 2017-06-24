@@ -7,7 +7,7 @@ from flask import session as appsession
 from catalog import catalogvars
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///' + catalogvars.database)
+engine = create_engine('postgresql://itemcatalog:itemcatalog@localhost/itemcatalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
