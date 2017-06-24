@@ -3,6 +3,7 @@ import json
 import requests
 from flask import request,\
     make_response
+from catalog import catalogvars
 
 
 def google_get_client_id():
@@ -12,7 +13,7 @@ def google_get_client_id():
     '''
 
     return json.loads(
-        open('client_secrets.json', 'r').read())['web']['client_id']
+        open(catalogvars.client_secrets_json, 'r').read())['web']['client_id']
 
 
 def google_get_tokeninfo(access_token):

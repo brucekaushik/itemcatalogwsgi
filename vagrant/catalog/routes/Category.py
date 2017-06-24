@@ -5,8 +5,8 @@ from flask import request,\
     make_response,\
     flash,\
     redirect
-from helpers import Catalog
-from models import CategoryModel,\
+from catalog.helpers import Catalog
+from catalog.models import CategoryModel,\
     ItemModel
 import json
 
@@ -20,13 +20,7 @@ def Category(category_name, category_id):
     # fetch all categories
     categories = CategoryModel.get_categories()
 
-    # fetch category items
-    items = ItemModel.get_category_items(category_id)
-
-    return render_template('category.html',
-                           category_name=category_name,
-                           categories=categories, items=items,
-                           appsession=appsession)
+    return render_template('category.html', categories=categories, appsession=appsession)
 
 
 @routes.route('/category/add', methods=['GET', 'POST'])
@@ -41,9 +35,10 @@ def AddCategory():
     stored_user_id = appsession.get('user_id')
     if stored_credentials is None and stored_user_id is None:
         response = make_response(json.dumps(
-            {'response': 'please login first'}), 401)
+                {'response': 'please login first'}), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
+
 
     if request.method == 'POST':
         # verify state (csrf attack protection)
@@ -53,15 +48,7 @@ def AddCategory():
             response.headers['Content-Type'] = 'application/json'
             return response
 
-        # if category name is empty
         category_name = request.form.get('name').strip()
-        if not category_name:
-            flash('please fill category name field')
-            return render_template('add_category.html',
-                                   STATE=request.form.get('state'),
-                                   appsession=appsession)
-
-        # add category
         result = CategoryModel.add_category(category_name)
         if result:
             flash('category added successfully')
@@ -76,9 +63,7 @@ def AddCategory():
         # store state token in session
         appsession['state'] = state_token
 
-        return render_template('add_category.html',
-                               STATE=state_token,
-                               appsession=appsession)
+        return render_template('add_category.html', STATE=state_token, appsession=appsession)
 
 
 @routes.route('/category/<int:category_id>/edit')

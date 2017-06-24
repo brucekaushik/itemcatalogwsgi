@@ -1,15 +1,17 @@
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker, exc
-from dbsetup import Base, User, Catalog, Category, Item
-from models import CatalogModel
+from sqlalchemy.orm import scoped_session
+from catalog.dbsetup import Base, User, Catalog, Category, Item
+from catalog.models import CatalogModel
 from flask import session as appsession
+from catalog import catalogvars
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///itemcatalog.db')
+engine = create_engine('sqlite:///' + catalogvars.database)
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
-session = DBSession()
+session = scoped_session(DBSession)
 
 
 def get_categories():

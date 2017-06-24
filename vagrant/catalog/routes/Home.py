@@ -1,7 +1,7 @@
 from . import routes
 from flask import render_template,\
     session as appsession
-from models import CategoryModel,\
+from catalog.models import CategoryModel,\
     ItemModel
 
 

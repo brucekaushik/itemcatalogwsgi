@@ -1,9 +1,7 @@
 from . import routes
-from helpers import Catalog,\
-    Oauth
-from models import UserModel,\
-    CategoryModel,\
-    ItemModel
+from catalog.helpers import Oauth
+from catalog.helpers import Catalog as CatalogHelper
+from catalog.models import *
 from flask import render_template,\
     session as appsession,\
     request,\
@@ -15,6 +13,7 @@ from oauth2client.client import FlowExchangeError
 import json
 import httplib2
 import requests
+from catalog import catalogvars
 
 
 @routes.route('/user')
@@ -68,7 +67,7 @@ def Login():
         # exchange the authorization code for credentials object
         try:
             oauth_flow = flow_from_clientsecrets(
-                'client_secrets.json', scope='')
+                catalogvars.client_secrets_json, scope='')
             oauth_flow.redirect_uri = 'postmessage'
             credentials = oauth_flow.step2_exchange(authcode)
         except FlowExchangeError:
@@ -122,7 +121,7 @@ def Login():
         return response
 
     else:
-        state_token = Catalog.generate_state_token()
+        state_token = CatalogHelper.generate_state_token()
 
         # store state token in session
         appsession['state'] = state_token

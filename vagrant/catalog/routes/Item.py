@@ -6,8 +6,8 @@ from flask import request,\
     flash,\
     redirect,\
     jsonify
-from helpers import Catalog
-from models import CategoryModel,\
+from catalog.helpers import Catalog
+from catalog.models import CategoryModel,\
     ItemModel,\
     CatalogModel
 import json
