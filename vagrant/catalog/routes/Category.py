@@ -20,7 +20,13 @@ def Category(category_name, category_id):
     # fetch all categories
     categories = CategoryModel.get_categories()
 
-    return render_template('category.html', categories=categories, appsession=appsession)
+    # fetch category items
+    items = ItemModel.get_category_items(category_id)
+
+    return render_template('category.html',
+                           category_name=category_name,
+                           categories=categories, items=items,
+                           appsession=appsession)
 
 
 @routes.route('/category/add', methods=['GET', 'POST'])
